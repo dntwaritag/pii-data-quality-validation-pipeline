@@ -1,0 +1,55 @@
+DATA QUALITY REPORT
+============================================================
+
+1. COMPLETENESS
+------------------------------------------------------------
+customer_id: total=220, missing=0 (0.0%)
+first_name: total=220, missing=4 (1.82%)
+last_name: total=220, missing=0 (0.0%)
+email: total=220, missing=4 (1.82%)
+phone: total=220, missing=4 (1.82%)
+date_of_birth: total=220, missing=0 (0.0%)
+address: total=220, missing=4 (1.82%)
+income: total=220, missing=4 (1.82%)
+account_status: total=220, missing=0 (0.0%)
+created_date: total=220, missing=0 (0.0%)
+
+2. DATA TYPES
+------------------------------------------------------------
+customer_id: source=string (raw CSV text), expected=integer, conversion_required=True
+first_name: source=string (raw CSV text), expected=string, conversion_required=False
+last_name: source=string (raw CSV text), expected=string, conversion_required=False
+email: source=string (raw CSV text), expected=string, conversion_required=False
+phone: source=string (raw CSV text), expected=string, conversion_required=False
+date_of_birth: source=string (raw CSV text), expected=date (YYYY-MM-DD), conversion_required=True
+address: source=string (raw CSV text), expected=string, conversion_required=False
+income: source=string (raw CSV text), expected=numeric (float), conversion_required=True
+account_status: source=string (raw CSV text), expected=categorical string, conversion_required=True
+created_date: source=string (raw CSV text), expected=date (YYYY-MM-DD), conversion_required=True
+
+3. FORMAT ISSUES
+------------------------------------------------------------
+Phone format distribution: {'XXX-XXX-XXXX': 208, 'XXX.XXX.XXXX': 1, '(XXX) XXX-XXXX': 2}
+Malformed phone count: 5
+Date format distribution (date_of_birth + created_date): {'YYYY-MM-DD': 428, 'non_standard': 4}
+Invalid/unparseable date count: 8
+Capitalization issue count (names/status): 19
+Whitespace issue count (names/status): 12
+
+4. UNIQUENESS
+------------------------------------------------------------
+Total records: 220
+Unique customer_id values: 216
+Records involved in duplicate customer_id: 8
+Duplicate customer_id values: ['31', '57', '61', '64']
+Fully duplicate rows: 0
+
+5. INVALID VALUES
+------------------------------------------------------------
+Negative income: 4
+Income above $10,000,000: 4
+Invalid/unparseable date_of_birth: 4
+Future date_of_birth: 4
+Age above 150: 4
+Invalid account_status: 4
+Invalid/unparseable created_date: 4

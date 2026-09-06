@@ -1,0 +1,51 @@
+VALIDATION RESULTS -- PRE-CLEANING
+============================================================
+
+Total rows: 220
+Passed rows: 140
+Failed rows: 80
+Pass rate: 63.64%
+
+FAILURE COUNTS BY COLUMN
+------------------------------------------------------------
+income: 12
+date_of_birth: 12
+first_name: 12
+customer_id: 8
+last_name: 8
+address: 8
+phone: 8
+email: 8
+created_date: 4
+account_status: 4
+
+FAILURE COUNTS BY RULE
+------------------------------------------------------------
+non_empty: 20
+unique: 8
+valid_date: 8
+valid_format: 8
+normalized_whitespace: 8
+alphabetic: 4
+length_10_200: 4
+le_10_000_000: 4
+age_le_150: 4
+non_negative: 4
+allowed_value: 4
+length_2_50: 4
+not_future: 4
+
+REPRESENTATIVE FAILING CUSTOMER IDS (first 20, safe to show for synthetic data)
+------------------------------------------------------------
+31, 57, 61, 64, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 145, 146, 147, 148, 149
+
+SUMMARY: 80 of 220 rows failed one or more rules at this stage. See cleaning_log.txt for how repairable issues were fixed and unrepairable rows were quarantined.
+
+============================================================
+POST-CLEANING VALIDATION
+============================================================
+
+Total rows: 148
+Passed rows: 148
+Failed rows: 0
+All records in the cleaned dataset pass every validation rule.

@@ -1,0 +1,51 @@
+PII DETECTION REPORT
+============================================================
+
+1. CLASSIFICATION
+------------------------------------------------------------
+address: direct_identifier
+created_date: quasi_identifier_metadata
+customer_id: quasi_identifier_metadata
+date_of_birth: sensitive_personal_information
+email: direct_identifier
+first_name: direct_identifier
+income: sensitive_personal_information
+last_name: direct_identifier
+phone: direct_identifier
+
+2. FIELD PRESENCE COUNTS
+------------------------------------------------------------
+address: present=216 (98.18%)
+date_of_birth: present=220 (100.0%)
+email: present=216 (98.18%)
+first_name: present=216 (98.18%)
+income: present=216 (98.18%)
+last_name: present=220 (100.0%)
+phone: present=216 (98.18%)
+
+3. RECORD-LEVEL SUMMARY
+------------------------------------------------------------
+Total records: 220
+Records containing at least one PII field: 220 (100.0%)
+
+4. EMAIL / PHONE PATTERN DETECTION
+------------------------------------------------------------
+Emails matching valid pattern: 212
+Emails present but not matching valid pattern: 4
+Phones matching a recognized pattern: 212
+Phones present but not matching a recognized pattern: 4
+
+5. RISK IMPLICATIONS
+------------------------------------------------------------
+address: Direct identifier; reveals physical location, a high-sensitivity attribute.
+created_date: Low-sensitivity metadata; mainly useful for correlation/analytics, not identification.
+customer_id: Quasi-identifier/internal key; not sensitive alone, but links all other fields for a person.
+date_of_birth: Sensitive; combined with other quasi-identifiers, supports re-identification and is used in identity verification/fraud.
+email: Direct identifier and a common cross-service correlation key.
+first_name: Direct identifier; combined with last_name, uniquely identifies a person.
+income: Sensitive financial attribute; disclosure risk is reputational/financial rather than identifying on its own.
+last_name: Direct identifier; combined with first_name, uniquely identifies a person.
+phone: Direct identifier; can be used for account takeover or unsolicited contact.
+
+Note: this report intentionally contains only counts and
+classifications -- no raw PII values are printed here.

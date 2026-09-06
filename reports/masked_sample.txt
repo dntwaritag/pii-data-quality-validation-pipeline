@@ -1,0 +1,30 @@
+PII MASKING SAMPLE
+============================================================
+
+Because the source data is entirely synthetic, this file shows a small before/after comparison for a few sample fields. No real customer data is displayed anywhere in this project.
+
+Record customer_id=1
+  FIELD: First name  | Before: Linda                | After: L***
+  FIELD: Last name   | Before: Smith                | After: S***
+  FIELD: Email       | Before: linda.smith1@example.net       | After: l***@example.net
+  FIELD: Phone       | Before: 450-428-3286    | After: ***-***-3286
+  FIELD: Address     | Before: [synthetic address]     | After: [MASKED ADDRESS]
+  FIELD: DOB         | Before: 1992-02-22   | After: 1992-**-**
+
+Record customer_id=2
+  FIELD: First name  | Before: Andrew               | After: A***
+  FIELD: Last name   | Before: Martin               | After: M***
+  FIELD: Email       | Before: andrew.martin2@example.com     | After: a***@example.com
+  FIELD: Phone       | Before: 774-403-9928    | After: ***-***-9928
+  FIELD: Address     | Before: [synthetic address]     | After: [MASKED ADDRESS]
+  FIELD: DOB         | Before: 1971-04-15   | After: 1971-**-**
+
+Record customer_id=3
+  FIELD: First name  | Before: Sarah                | After: S***
+  FIELD: Last name   | Before: Jones                | After: J***
+  FIELD: Email       | Before: sarah.jones3@example.org       | After: s***@example.org
+  FIELD: Phone       | Before: 981-544-2674    | After: ***-***-2674
+  FIELD: Address     | Before: [synthetic address]     | After: [MASKED ADDRESS]
+  FIELD: DOB         | Before: 1950-07-04   | After: 1950-**-**
+
+Income is intentionally NOT masked in this dataset (see masking.py module docstring and reflection.md for the reasoning).

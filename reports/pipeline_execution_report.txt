@@ -1,0 +1,53 @@
+PIPELINE EXECUTION REPORT
+============================================================
+
+Execution timestamp: 2026-09-06T21:16:25
+Input file: /home/claude/pii-data-quality-validation-pipeline/data/customers_raw.csv
+Input row count: 220
+
+VALIDATION (pre-cleaning)
+------------------------------------------------------------
+Passed: 140
+Failed: 80
+
+CLEANING
+------------------------------------------------------------
+Cleaned records: 148
+Rejected/quarantined records: 72
+
+VALIDATION (post-cleaning)
+------------------------------------------------------------
+Passed: 148
+Failed: 0
+
+PII DETECTION
+------------------------------------------------------------
+Records with any PII: 220
+
+MASKING
+------------------------------------------------------------
+Masked records written: 148
+
+GENERATED FILES
+------------------------------------------------------------
+  /home/claude/pii-data-quality-validation-pipeline/reports/data_quality_report.txt
+  /home/claude/pii-data-quality-validation-pipeline/reports/pii_detection_report.txt
+  /home/claude/pii-data-quality-validation-pipeline/reports/validation_results.txt
+  /home/claude/pii-data-quality-validation-pipeline/reports/cleaning_log.txt
+  /home/claude/pii-data-quality-validation-pipeline/outputs/customers_cleaned.csv
+  /home/claude/pii-data-quality-validation-pipeline/outputs/customers_masked.csv
+  /home/claude/pii-data-quality-validation-pipeline/reports/masked_sample.txt
+
+WARNINGS
+------------------------------------------------------------
+  (none)
+
+ERRORS
+------------------------------------------------------------
+  (none)
+
+Pipeline Status: SUCCESS
+Input Records: 220
+Cleaned Records: 148
+Rejected Records: 72
+Masked Records: 148

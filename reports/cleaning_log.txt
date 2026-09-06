@@ -1,0 +1,52 @@
+CLEANING LOG
+============================================================
+
+Input records: 220
+Cleaned (retained) records: 148
+Removed records: 72
+
+CHANGES BY COLUMN (values reformatted, not removed)
+------------------------------------------------------------
+first_name: 12 values normalized
+last_name: 10 values normalized
+account_status: 9 values normalized
+date_of_birth: 4 values normalized
+phone: 4 values normalized
+
+REMOVAL REASONS (rows quarantined, with counts)
+------------------------------------------------------------
+duplicate_customer_id: 4 row(s) -- customer_id(s): 61, 57, 31, 64
+last_name:alphabetic: 4 row(s) -- customer_id(s): 133, 178, 196, 219
+address:length_10_200: 4 row(s) -- customer_id(s): 134, 168, 174, 188
+created_date:valid_date: 4 row(s) -- customer_id(s): 135, 172, 212, 216
+income:non_empty: 4 row(s) -- customer_id(s): 136, 184, 214, 220
+phone:non_empty: 4 row(s) -- customer_id(s): 137, 141, 179, 191
+address:non_empty: 4 row(s) -- customer_id(s): 138, 170, 171, 177
+phone:valid_format: 4 row(s) -- customer_id(s): 139, 163, 198, 215
+income:le_10_000_000: 4 row(s) -- customer_id(s): 140, 166, 194, 218
+date_of_birth:age_le_150: 4 row(s) -- customer_id(s): 142, 151, 153, 154
+income:non_negative: 4 row(s) -- customer_id(s): 143, 146, 199, 200
+account_status:allowed_value: 4 row(s) -- customer_id(s): 145, 167, 175, 190
+first_name:length_2_50: 4 row(s) -- customer_id(s): 147, 160, 162, 164
+date_of_birth:valid_date: 4 row(s) -- customer_id(s): 148, 152, 182, 187
+email:valid_format: 4 row(s) -- customer_id(s): 149, 155, 208, 209
+first_name:non_empty: 4 row(s) -- customer_id(s): 156, 173, 185, 211
+date_of_birth:not_future: 4 row(s) -- customer_id(s): 176, 189, 204, 206
+email:non_empty: 4 row(s) -- customer_id(s): 181, 192, 203, 213
+
+MISSING-VALUE / REMEDIATION STRATEGY
+------------------------------------------------------------
+Automatically repaired (reformatted only, no data invented):
+  phone -> normalized to XXX-XXX-XXXX where a recognized shape existed
+  date_of_birth / created_date -> normalized to YYYY-MM-DD where a recognized shape existed
+  first_name / last_name -> whitespace collapsed, title-cased
+  account_status -> whitespace stripped, lower-cased
+Quarantined (row removed, reason logged, nothing invented):
+  duplicate customer_id (kept first occurrence)
+  missing/invalid customer_id, empty/invalid-character/too-long names
+  invalid email format, unparseable phone numbers
+  invalid/impossible/future date_of_birth, age above 150
+  invalid created_date, out-of-range or missing income
+  too-short/empty address, account_status outside the allowed set
+
+CONSISTENCY CHECK: input_records (220) == cleaned_records (148) + removed_records (72): True
