@@ -1,36 +1,44 @@
-.PHONY: install generate run test clean docker-build docker-run docker-test
+.PHONY: help install generate run test clean docker-build docker-run docker-test all
 
-# Create a venv and install dependencies.
+.DEFAULT_GOAL := help
+
+## help: Show this list of available targets.
+help:
+	@echo "Available targets:"
+	@grep -E '^## ' Makefile | sed -E 's/^## /  /'
+
+## install: Create a venv and install dependencies.
 install:
 	python3 -m venv .venv
 	.venv/bin/pip install --upgrade pip
 	.venv/bin/pip install -r requirements.txt
 
-# Regenerate the synthetic raw dataset (seeded, reproducible).
+## generate: Regenerate the synthetic raw dataset (seeded, reproducible).
 generate:
 	python3 -m src.generate_dataset
 
-# Run the full profiling -> PII detection -> validation -> cleaning ->
-# masking -> reporting pipeline.
+## run: Run the full profiling -> PII detection -> validation -> cleaning -> masking -> reporting pipeline.
 run:
 	python3 -m src.pipeline
 
-# Run the automated test suite.
+## test: Run the automated test suite.
 test:
 	python3 -m pytest -q
 
-# Remove generated artifacts and caches (keeps source and .git untouched).
+## all: Generate the dataset, run the pipeline, then run the tests.
+all: generate run test
+
+## clean: Remove generated artifacts and caches (keeps source and .git untouched).
 clean:
 	rm -rf outputs/* reports/* logs/*.log
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf .pytest_cache
 
-# Build the Docker image.
+## docker-build: Build the Docker image.
 docker-build:
 	docker build -t pii-data-quality-pipeline .
 
-# Run the pipeline inside a container; writes outputs/reports to the
-# host via a bind mount so results are visible outside the container.
+## docker-run: Run the pipeline in a container; outputs/reports/logs are bind-mounted to the host.
 docker-run:
 	docker run --rm \
 		-v "$(PWD)/outputs:/app/outputs" \
@@ -38,6 +46,6 @@ docker-run:
 		-v "$(PWD)/logs:/app/logs" \
 		pii-data-quality-pipeline
 
-# Run the test suite inside a container.
+## docker-test: Run the test suite inside a container.
 docker-test:
 	docker run --rm --entrypoint pytest pii-data-quality-pipeline -q

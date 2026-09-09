@@ -27,6 +27,9 @@ In a real deployment:
   need pre-cleaning access (data engineering), not general analytics users.
 - The masked dataset (`outputs/customers_masked.csv`) is the appropriate
   artifact for broader analytical access.
+- `outputs/customers_quarantined.csv` contains unmasked PII (it holds the
+  actual rejected rows) and should be restricted to the same access tier
+  as raw/cleaned data, not treated as a low-sensitivity audit log.
 - Reports (`reports/*.txt`) intentionally contain counts and metadata only,
   never raw PII values, so they can be shared more widely without
   re-exposing the data they describe.
@@ -50,11 +53,15 @@ issues were resolved and whether any remain.
 ## Auditability
 
 Every pipeline run produces:
-- `pipeline_execution_report.txt` — a timestamped summary of what ran and
-  what it produced.
+- `pipeline_execution_report.txt` — a timestamped summary of what ran,
+  what it produced, and how long each stage took.
 - `cleaning_log.txt` — every normalization and every row removal, with the
   specific reason and (for this synthetic dataset) the affected
   customer_id.
+- `outputs/customers_quarantined.csv` — the actual removed rows (not just
+  counts), each tagged with the rule(s) it failed, so a reviewer can
+  inspect exactly what was excluded and why rather than trusting a
+  summary number.
 - `logs/pipeline.log` — a structured, append-only log of each pipeline
   stage.
 

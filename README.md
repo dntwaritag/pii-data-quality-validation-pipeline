@@ -155,12 +155,17 @@ present, then executes the full pipeline.
 
 ## Makefile Targets
 
+Run `make` or `make help` at any time to list these from the Makefile
+itself (self-documenting via `## ` comments):
+
 | Target | Description |
 |---|---|
+| `make help` | Show all available targets (default goal). |
 | `make install` | Create a venv and install dependencies. |
 | `make generate` | Regenerate the synthetic raw dataset. |
 | `make run` | Run the full pipeline. |
 | `make test` | Run the test suite. |
+| `make all` | Generate the dataset, run the pipeline, then run the tests. |
 | `make clean` | Remove generated outputs/reports/logs and caches. |
 | `make docker-build` | Build the Docker image. |
 | `make docker-run` | Run the pipeline in a container, outputs bind-mounted to the host. |
@@ -173,14 +178,16 @@ present, then executes the full pipeline.
 | `data/customers_raw.csv` | Synthetic input data. |
 | `outputs/customers_cleaned.csv` | Rows that pass validation after normalization. |
 | `outputs/customers_masked.csv` | Cleaned rows with PII masking applied. |
+| `outputs/customers_quarantined.csv` | Every removed row (as it stood when removed), plus a `quarantine_reason` column -- removed records are an inspectable dataset, not just a count. |
 | `reports/data_quality_report.txt` | Part 1 profiling results. |
 | `reports/pii_detection_report.txt` | Part 2 PII classification and counts. |
 | `reports/validation_results.txt` | Part 3 pre- and post-cleaning validation results. |
 | `reports/cleaning_log.txt` | Part 4 normalization changes and quarantine reasons. |
 | `reports/masked_sample.txt` | Part 5 before/after masking sample. |
-| `reports/pipeline_execution_report.txt` | Part 6 execution summary. |
+| `reports/pipeline_execution_report.txt` | Part 6 execution summary, including per-stage timings. |
 | `reflection.md` | Part 7 written reflection. |
 | `docs/data_governance.md` | Governance controls and rationale. |
+| `docs/architecture.md` | Module responsibilities, data flow, and design decisions. |
 
 ## Data Quality
 
@@ -215,7 +222,17 @@ capitalization, a recognized phone/date shape) are reformatted in place;
 everything else that would require inventing data (missing/invalid
 identifiers, unparseable values, out-of-range values, disallowed
 categories) causes the row to be quarantined, with the reason and affected
-customer_id logged in `cleaning_log.txt`.
+customer_id logged in `cleaning_log.txt` **and** the full row written to
+`outputs/customers_quarantined.csv` (with a `quarantine_reason` column),
+so quarantined records can actually be reviewed, not just counted.
+
+**Performance note**: this project does not use a code profiler
+(`cProfile`, `line_profiler`, etc.) -- it's a straightforward batch job
+over a few hundred rows where per-line CPU profiling wouldn't add much.
+What it does track is wall-clock duration per pipeline stage (ingestion,
+profiling, PII detection, validation, cleaning, masking), logged and
+included in `pipeline_execution_report.txt`, which is the practically
+useful equivalent for a batch pipeline at this scale.
 
 ## Privacy
 

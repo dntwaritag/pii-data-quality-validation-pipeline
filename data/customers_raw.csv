@@ -174,7 +174,7 @@ customer_id,first_name,last_name,email,phone,date_of_birth,address,income,accoun
 173,,Clark,andrew.clark173@mail.example.com,383-309-2578,1978-03-08,"3244 Highland Avenue, Salem, OR 97301",81512.66,inactive,2019-07-03
 174,Lisa,Gonzalez,lisa.gonzalez174@mail.example.com,778-449-4700,1964-11-27,1 A St,113919.0,inactive,2023-08-02
 175,James,Thompson,james.thompson175@example.org,284-711-8109,1986-06-19,"1662 River Drive, Springfield, IL 62701",76710.5,unknown,2024-08-09
-176,Robert,Robinson,robert.robinson176@example.com,900-487-9897,2027-12-26,"3038 Birch Court, Springfield, IL 62701",231831.47,suspended,2017-12-27
+176,Robert,Robinson,robert.robinson176@example.com,900-487-9897,2027-12-21,"3038 Birch Court, Springfield, IL 62701",231831.47,suspended,2017-12-27
 177,Betty,Robinson,betty.robinson177@example.com,506-366-4939,1981-07-22,,188189.16,active,2026-12-03
 178,Andrew,Smith$,andrew.white178@example.net,254-300-8161,1959-02-11,"9858 Willow Way, Franklin, TN 37064",34280.64,inactive,2022-08-08
 179,Matthew,Moore,matthew.moore179@mail.example.com,,1950-10-10,"4137 Oak Avenue, Riverside, CA 92501",84810.07,inactive,2026-11-05
@@ -187,7 +187,7 @@ customer_id,first_name,last_name,email,phone,date_of_birth,address,income,accoun
 186,  Barbara  , Perez,barbara.perez186@example.com,944-672-4434,1973-05-27,"1233 Willow Way, Madison, WI 53703",57505.97, inactive ,2018-05-22
 187,Elizabeth,Thompson,elizabeth.thompson187@mail.example.com,586-275-8357,2024-02-30,"6666 River Drive, Salem, OR 97301",223781.1,suspended,2021-09-02
 188,Lisa,Thompson,lisa.thompson188@example.com,311-987-5067,1987-11-12,N/A,147402.7,suspended,2025-11-13
-189,Nancy,Sanchez,nancy.sanchez189@mail.example.com,308-210-2615,2034-07-30,"8599 River Drive, Arlington, VA 22201",173784.85,active,2022-06-13
+189,Nancy,Sanchez,nancy.sanchez189@mail.example.com,308-210-2615,2034-07-25,"8599 River Drive, Arlington, VA 22201",173784.85,active,2022-06-13
 190,Sandra,Harris,sandra.harris190@example.org,553-225-8909,1951-05-14,"1506 Oak Avenue, Fairview, TX 75001",101845.67,ACTIVE-ish,2022-04-17
 191,Steven,Lopez,steven.lopez191@mail.example.com,,1965-02-10,"832 Oak Avenue, Springfield, IL 62701",208026.16,suspended,2016-11-26
 192,David,Robinson,,728-378-3623,1966-09-14,"7670 Pine Road, Greenville, SC 29601",161509.19,active,2025-11-14
@@ -202,9 +202,9 @@ customer_id,first_name,last_name,email,phone,date_of_birth,address,income,accoun
 31,Donna,Thompson,donna.thompson201@example.net,927-824-8015,1955-10-05,"3485 Pine Road, Springfield, IL 62701",148855.76,suspended,2019-10-18
 64,David,Hernandez,david.hernandez202@example.net,496-786-5380,1999-09-22,"1660 Cedar Lane, Greenville, SC 29601",222778.97,inactive,2025-03-23
 203,William,Davis,,928-529-5055,1993-11-13,"8119 Cedar Lane, Arlington, VA 22201",162069.22,suspended,2021-07-15
-204,John,Lee,john.lee204@example.com,612-727-5558,2027-10-28,"8096 Birch Court, Arlington, VA 22201",28524.29,suspended,2016-12-15
+204,John,Lee,john.lee204@example.com,612-727-5558,2027-10-23,"8096 Birch Court, Arlington, VA 22201",28524.29,suspended,2016-12-15
 205,MATTHEW,ramirez,matthew.ramirez205@example.com,747-607-4568,1972-04-16,"4499 Birch Court, Clinton, NY 13323",99604.09,SUSPENDED,2017-10-28
-206,Ashley,Sanchez,ashley.sanchez206@example.net,898-980-1793,2035-11-02,"7629 Maple Street, Riverside, CA 92501",225039.77,active,2022-08-01
+206,Ashley,Sanchez,ashley.sanchez206@example.net,898-980-1793,2035-10-28,"7629 Maple Street, Riverside, CA 92501",225039.77,active,2022-08-01
 207,Margaret,Miller,margaret.miller207@example.org,(515) 674-5341,2000-05-03,"6005 Elm Street, Riverside, CA 92501",106830.88,suspended,2017-01-13
 208,Karen,White,spaced name@example.com,639-871-2494,1990-02-01,"3596 Sunset Boulevard, Riverside, CA 92501",56132.36,active,2023-11-15
 209,James,Smith,not-an-email,323-632-3165,1975-02-08,"6376 Oak Avenue, Riverside, CA 92501",49878.73,inactive,2019-03-13

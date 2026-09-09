@@ -23,6 +23,7 @@ def isolated_pipeline_dirs(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "RAW_DATA_FILE", data_dir / "customers_raw.csv")
     monkeypatch.setattr(config, "CLEANED_DATA_FILE", output_dir / "customers_cleaned.csv")
     monkeypatch.setattr(config, "MASKED_DATA_FILE", output_dir / "customers_masked.csv")
+    monkeypatch.setattr(config, "QUARANTINED_DATA_FILE", output_dir / "customers_quarantined.csv")
     monkeypatch.setattr(config, "DATA_QUALITY_REPORT", reports_dir / "data_quality_report.txt")
     monkeypatch.setattr(config, "PII_DETECTION_REPORT", reports_dir / "pii_detection_report.txt")
     monkeypatch.setattr(config, "VALIDATION_RESULTS_REPORT", reports_dir / "validation_results.txt")
@@ -46,12 +47,20 @@ def test_pipeline_success_end_to_end(isolated_pipeline_dirs):
     assert summary["rejected_record_count"] == 1
     assert config.CLEANED_DATA_FILE.exists()
     assert config.MASKED_DATA_FILE.exists()
+    assert config.QUARANTINED_DATA_FILE.exists()
     assert config.DATA_QUALITY_REPORT.exists()
     assert config.PII_DETECTION_REPORT.exists()
     assert config.VALIDATION_RESULTS_REPORT.exists()
     assert config.CLEANING_LOG_REPORT.exists()
     assert config.MASKED_SAMPLE_REPORT.exists()
     assert config.PIPELINE_EXECUTION_REPORT.exists()
+
+    quarantined_df = pd.read_csv(config.QUARANTINED_DATA_FILE, dtype=str, keep_default_na=False)
+    assert len(quarantined_df) == 1
+    assert "quarantine_reason" in quarantined_df.columns
+
+    assert "cleaning" in summary["stage_timings_seconds"]
+    assert summary["total_duration_seconds"] > 0
 
 
 def test_pipeline_missing_input_file_raises(isolated_pipeline_dirs):

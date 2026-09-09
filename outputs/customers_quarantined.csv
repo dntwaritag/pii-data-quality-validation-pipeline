@@ -1,0 +1,73 @@
+customer_id,first_name,last_name,email,phone,date_of_birth,address,income,account_status,created_date,quarantine_reason
+61,Anthony,Davis,anthony.davis165@example.net,408-538-2295,2004-08-28,"6179 Oak Avenue, Salem, OR 97301",181611.96,active,2015-05-13,duplicate_customer_id
+57,Thomas,Moore,thomas.moore169@mail.example.com,502-356-4214,1966-04-13,"9435 Pine Road, Madison, WI 53703",144736.22,suspended,2020-05-25,duplicate_customer_id
+31,Donna,Thompson,donna.thompson201@example.net,927-824-8015,1955-10-05,"3485 Pine Road, Springfield, IL 62701",148855.76,suspended,2019-10-18,duplicate_customer_id
+64,David,Hernandez,david.hernandez202@example.net,496-786-5380,1999-09-22,"1660 Cedar Lane, Greenville, SC 29601",222778.97,inactive,2025-03-23,duplicate_customer_id
+133,Matthew,O'Br13N,matthew.gonzalez133@example.org,978-579-9437,1980-02-11,"4060 Sunset Boulevard, Riverside, CA 92501",84703.99,active,2017-02-02,last_name:alphabetic
+134,Charles,Gonzalez,charles.gonzalez134@mail.example.com,454-363-6364,2004-10-24,1 A St,133632.29,suspended,2022-08-10,address:length_10_200
+135,Ashley,Smith,ashley.smith135@example.com,602-717-8491,1960-04-19,"5881 Maple Street, Springfield, IL 62701",87647.54,suspended,13/40/2026,created_date:valid_date
+136,Charles,Moore,charles.moore136@example.com,310-641-3194,2001-05-24,"6092 Willow Way, Franklin, TN 37064",,active,2024-09-07,income:non_empty
+137,Lisa,Moore,lisa.moore137@example.net,,1973-09-09,"2046 Cedar Lane, Riverside, CA 92501",111507.59,inactive,2023-06-25,phone:non_empty
+138,Elizabeth,Miller,elizabeth.miller138@mail.example.com,712-241-1742,1947-03-23,,124881.57,suspended,2023-03-11,address:non_empty
+139,Michelle,Hernandez,michelle.hernandez139@example.org,12345,1982-06-17,"8451 River Drive, Madison, WI 53703",178252.84,inactive,2022-01-12,phone:valid_format
+140,Nancy,Perez,nancy.perez140@example.com,626-797-6040,1995-12-28,"536 Highland Avenue, Madison, WI 53703",48585388.93,suspended,2024-10-08,income:le_10_000_000
+141,Patricia,Jackson,patricia.jackson141@mail.example.com,,1954-11-08,"617 Highland Avenue, Riverside, CA 92501",68446.28,inactive,2020-07-05,phone:non_empty
+142,Mark,Thompson,mark.thompson142@example.org,620-713-8726,1838-02-28,"1120 Cedar Lane, Salem, OR 97301",71956.44,inactive,2025-08-17,date_of_birth:age_le_150
+143,Anthony,Hernandez,anthony.hernandez143@example.org,670-745-6608,1979-06-22,"4431 Highland Avenue, Madison, WI 53703",-15292.13,active,2019-09-10,income:non_negative
+145,Matthew,Harris,matthew.harris145@example.org,497-243-5712,1990-02-12,"7347 Elm Street, Madison, WI 53703",73365.2,closed,2019-09-23,account_status:allowed_value
+146,Sarah,Jones,sarah.jones146@example.com,830-958-4920,1960-01-22,"8800 Pine Road, Georgetown, OH 45121",-27260.3,inactive,2020-12-16,income:non_negative
+147,Maximilianusmaximilianusmaximilianusmaximilianusmaximilianus,Perez,michael.perez147@example.org,205-763-3587,1971-11-16,"7922 Pine Road, Clinton, NY 13323",96087.55,suspended,2015-02-21,first_name:length_2_50
+148,Joshua,Davis,joshua.davis148@example.com,379-627-3880,2024-02-30,"6604 Sunset Boulevard, Fairview, TX 75001",226561.05,inactive,2015-01-10,date_of_birth:valid_date
+149,Joshua,Martin,missing.domain@,543-491-8444,1986-09-17,"8192 Cedar Lane, Salem, OR 97301",127220.4,active,2016-06-06,email:valid_format
+151,Daniel,Williams,daniel.williams151@mail.example.com,885-297-4027,1859-02-26,"4164 Maple Street, Clinton, NY 13323",109317.77,inactive,2019-06-10,date_of_birth:age_le_150
+152,Donna,White,donna.white152@example.com,467-869-6890,1990-13-05,"2036 Sunset Boulevard, Clinton, NY 13323",61859.97,suspended,2023-12-25,date_of_birth:valid_date
+153,Karen,Thompson,karen.thompson153@example.com,854-502-7021,1839-02-06,"2288 Sunset Boulevard, Fairview, TX 75001",124455.48,suspended,2020-07-23,date_of_birth:age_le_150
+154,Emily,Robinson,emily.robinson154@mail.example.com,975-750-4578,1868-01-07,"9861 Oak Avenue, Salem, OR 97301",122710.57,suspended,2020-02-19,date_of_birth:age_le_150
+155,Linda,Johnson,@nodomain.com,786-749-3455,1955-06-28,"8625 Sunset Boulevard, Riverside, CA 92501",172222.59,suspended,2024-08-03,email:valid_format
+156,,Anderson,andrew.anderson156@example.com,664-335-9409,1971-08-19,"1045 River Drive, Madison, WI 53703",170626.75,inactive,2026-01-13,first_name:non_empty
+160,Maximilianusmaximilianusmaximilianusmaximilianusmaximilianus,Clark,anthony.clark160@example.org,453-671-6671,1954-05-07,"1948 Maple Street, Greenville, SC 29601",158363.72,active,2018-04-03,first_name:length_2_50
+162,Maximilianusmaximilianusmaximilianusmaximilianusmaximilianus,Clark,joseph.clark162@example.net,791-812-6253,1960-05-05,"8640 Pine Road, Greenville, SC 29601",91706.2,active,2023-10-24,first_name:length_2_50
+163,Barbara,Lee,barbara.lee163@mail.example.com,555-CALL-NOW,1967-11-22,"6344 River Drive, Franklin, TN 37064",175617.38,inactive,2017-05-13,phone:valid_format
+164,Maximilianusmaximilianusmaximilianusmaximilianusmaximilianus,Harris,barbara.harris164@mail.example.com,446-430-5927,1999-12-05,"7686 Maple Street, Salem, OR 97301",115487.63,inactive,2023-09-05,first_name:length_2_50
+166,Kevin,Martin,kevin.martin166@example.com,274-392-4555,1975-04-28,"5555 Elm Street, Springfield, IL 62701",44036548.38,active,2026-02-24,income:le_10_000_000
+167,Steven,Robinson,steven.robinson167@example.org,912-818-4350,1970-04-18,"5369 Elm Street, Greenville, SC 29601",126845.1,unknown,2020-05-09,account_status:allowed_value
+168,Lisa,Taylor,lisa.taylor168@mail.example.com,677-300-8692,1993-06-07,1 A St,37691.67,active,2026-03-01,address:length_10_200
+170,Ashley,White,ashley.white170@mail.example.com,671-372-6770,1955-03-24,,222382.67,suspended,2025-01-17,address:non_empty
+171,Robert,Clark,robert.clark171@example.com,884-249-1104,1971-03-27,,29937.99,suspended,2022-06-02,address:non_empty
+172,Michelle,Lee,michelle.lee172@mail.example.com,875-699-1257,1945-09-18,"6839 Maple Street, Springfield, IL 62701",140236.54,inactive,2026-02-30,created_date:valid_date
+173,,Clark,andrew.clark173@mail.example.com,383-309-2578,1978-03-08,"3244 Highland Avenue, Salem, OR 97301",81512.66,inactive,2019-07-03,first_name:non_empty
+174,Lisa,Gonzalez,lisa.gonzalez174@mail.example.com,778-449-4700,1964-11-27,1 A St,113919.0,inactive,2023-08-02,address:length_10_200
+175,James,Thompson,james.thompson175@example.org,284-711-8109,1986-06-19,"1662 River Drive, Springfield, IL 62701",76710.5,unknown,2024-08-09,account_status:allowed_value
+176,Robert,Robinson,robert.robinson176@example.com,900-487-9897,2027-12-21,"3038 Birch Court, Springfield, IL 62701",231831.47,suspended,2017-12-27,date_of_birth:not_future
+177,Betty,Robinson,betty.robinson177@example.com,506-366-4939,1981-07-22,,188189.16,active,2026-12-03,address:non_empty
+178,Andrew,Smith$,andrew.white178@example.net,254-300-8161,1959-02-11,"9858 Willow Way, Franklin, TN 37064",34280.64,inactive,2022-08-08,last_name:alphabetic
+179,Matthew,Moore,matthew.moore179@mail.example.com,,1950-10-10,"4137 Oak Avenue, Riverside, CA 92501",84810.07,inactive,2026-11-05,phone:non_empty
+181,Andrew,Wilson,,226-291-6798,1980-02-20,"9898 Birch Court, Greenville, SC 29601",30616.21,inactive,2021-02-24,email:non_empty
+182,Emily,Lewis,emily.lewis182@example.org,785-733-3778,2024-02-30,"2374 Elm Street, Clinton, NY 13323",84902.24,active,2016-03-14,date_of_birth:valid_date
+184,Betty,Hernandez,betty.hernandez184@mail.example.com,537-650-6484,1972-11-20,"2330 Elm Street, Franklin, TN 37064",,suspended,2018-08-11,income:non_empty
+185,,Gonzalez,barbara.gonzalez185@example.net,498-952-9044,1981-04-11,"6261 Elm Street, Greenville, SC 29601",105383.29,suspended,2018-10-18,first_name:non_empty
+187,Elizabeth,Thompson,elizabeth.thompson187@mail.example.com,586-275-8357,2024-02-30,"6666 River Drive, Salem, OR 97301",223781.1,suspended,2021-09-02,date_of_birth:valid_date
+188,Lisa,Thompson,lisa.thompson188@example.com,311-987-5067,1987-11-12,N/A,147402.7,suspended,2025-11-13,address:length_10_200
+189,Nancy,Sanchez,nancy.sanchez189@mail.example.com,308-210-2615,2034-07-25,"8599 River Drive, Arlington, VA 22201",173784.85,active,2022-06-13,date_of_birth:not_future
+190,Sandra,Harris,sandra.harris190@example.org,553-225-8909,1951-05-14,"1506 Oak Avenue, Fairview, TX 75001",101845.67,active-ish,2022-04-17,account_status:allowed_value
+191,Steven,Lopez,steven.lopez191@mail.example.com,,1965-02-10,"832 Oak Avenue, Springfield, IL 62701",208026.16,suspended,2016-11-26,phone:non_empty
+192,David,Robinson,,728-378-3623,1966-09-14,"7670 Pine Road, Greenville, SC 29601",161509.19,active,2025-11-14,email:non_empty
+194,Kenneth,Garcia,kenneth.garcia194@example.net,533-401-8496,1952-05-22,"8119 River Drive, Franklin, TN 37064",25849779.11,suspended,2021-10-04,income:le_10_000_000
+196,Elizabeth,123456,elizabeth.taylor196@mail.example.com,628-810-3258,1981-07-14,"3143 Sunset Boulevard, Salem, OR 97301",175007.78,suspended,2017-09-06,last_name:alphabetic
+198,Ashley,Wilson,ashley.wilson198@mail.example.com,555-CALL-NOW,1976-03-03,"9363 Maple Street, Georgetown, OH 45121",89923.06,inactive,2018-09-10,phone:valid_format
+199,David,Harris,david.harris199@mail.example.com,779-960-9115,1980-09-04,"9483 Oak Avenue, Clinton, NY 13323",-7405.05,inactive,2023-01-25,income:non_negative
+200,Paul,Moore,paul.moore200@example.org,635-304-5055,1964-01-15,"4405 Birch Court, Riverside, CA 92501",-48451.6,active,2018-04-26,income:non_negative
+203,William,Davis,,928-529-5055,1993-11-13,"8119 Cedar Lane, Arlington, VA 22201",162069.22,suspended,2021-07-15,email:non_empty
+204,John,Lee,john.lee204@example.com,612-727-5558,2027-10-23,"8096 Birch Court, Arlington, VA 22201",28524.29,suspended,2016-12-15,date_of_birth:not_future
+206,Ashley,Sanchez,ashley.sanchez206@example.net,898-980-1793,2035-10-28,"7629 Maple Street, Riverside, CA 92501",225039.77,active,2022-08-01,date_of_birth:not_future
+208,Karen,White,spaced name@example.com,639-871-2494,1990-02-01,"3596 Sunset Boulevard, Riverside, CA 92501",56132.36,active,2023-11-15,email:valid_format
+209,James,Smith,not-an-email,323-632-3165,1975-02-08,"6376 Oak Avenue, Riverside, CA 92501",49878.73,inactive,2019-03-13,email:valid_format
+211,,Ramirez,paul.ramirez211@example.org,288-302-3293,1993-02-19,"6391 Birch Court, Greenville, SC 29601",94674.78,active,2018-05-21,first_name:non_empty
+212,Jennifer,Davis,jennifer.davis212@example.net,907-227-5942,1958-09-20,"8448 Pine Road, Greenville, SC 29601",90654.91,active,not-a-date,created_date:valid_date
+213,Linda,Davis,,853-808-2163,1978-01-12,"5285 Cedar Lane, Greenville, SC 29601",210492.57,suspended,2021-06-18,email:non_empty
+214,Barbara,Harris,barbara.harris214@mail.example.com,988-274-1273,1982-02-01,"4395 Pine Road, Springfield, IL 62701",,inactive,2023-05-21,income:non_empty
+215,Andrew,Harris,andrew.harris215@mail.example.com,000-000-0000000,1950-11-18,"8908 Highland Avenue, Fairview, TX 75001",86823.16,inactive,2016-09-07,phone:valid_format
+216,Elizabeth,Moore,elizabeth.moore216@example.net,600-800-2083,1964-12-14,"4009 Maple Street, Georgetown, OH 45121",46277.11,inactive,13/40/2026,created_date:valid_date
+218,Thomas,Garcia,thomas.garcia218@example.net,329-967-5403,1991-02-25,"580 Birch Court, Greenville, SC 29601",42946936.78,active,2019-12-19,income:le_10_000_000
+219,John,O'Br13N,john.thomas219@mail.example.com,723-568-1908,1976-10-06,"6124 Cedar Lane, Clinton, NY 13323",191945.74,suspended,2025-12-04,last_name:alphabetic
+220,Joseph,White,joseph.white220@example.com,245-212-5006,1947-08-12,"6374 Cedar Lane, Fairview, TX 75001",,active,2023-12-24,income:non_empty

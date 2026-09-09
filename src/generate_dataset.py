@@ -59,6 +59,12 @@ EMAIL_DOMAINS = ["example.com", "example.org", "example.net", "mail.example.com"
 
 VALID_STATUSES = ["active", "inactive", "suspended"]
 
+# Fixed anchor for seeding "future date of birth" errors so the generator
+# is deterministic regardless of the real-world date it's run on. Chosen
+# comfortably after this project's build date; any pipeline run against
+# this dataset will treat these as future dates as intended.
+FUTURE_DOB_ANCHOR = date(2026, 9, 1)
+
 
 @dataclass
 class ErrorInventory:
@@ -205,7 +211,10 @@ def generate_dataset(
                 d.strftime("%m/%d/%Y"), d.strftime("%d-%m-%Y"), d.strftime("%B %d, %Y"),
             ])
         elif category == "future_date_of_birth":
-            future = date.today() + timedelta(days=rng.randint(30, 3650))
+            # Anchored to a fixed reference date, not date.today(), so the
+            # generator stays fully deterministic under a fixed seed
+            # regardless of what day it's actually run on.
+            future = FUTURE_DOB_ANCHOR + timedelta(days=rng.randint(30, 3650))
             row["date_of_birth"] = future.isoformat()
         elif category == "age_above_150":
             row["date_of_birth"] = date(rng.randint(1830, 1870), rng.randint(1, 12), rng.randint(1, 28)).isoformat()

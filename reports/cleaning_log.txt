@@ -5,6 +5,8 @@ Input records: 220
 Cleaned (retained) records: 148
 Removed records: 72
 
+Every removed row (with the value it had at the moment of removal) is written to outputs/customers_quarantined.csv with a quarantine_reason column -- removed records are an inspectable dataset, not just a count.
+
 CHANGES BY COLUMN (values reformatted, not removed)
 ------------------------------------------------------------
 first_name: 12 values normalized

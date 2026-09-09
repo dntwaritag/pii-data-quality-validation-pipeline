@@ -35,9 +35,11 @@ from datetime import datetime
 
 import pandas as pd
 
-from src.config import ALLOWED_ACCOUNT_STATUSES
+from src.config import ALLOWED_ACCOUNT_STATUSES, EXPECTED_COLUMNS
 from src.validation import _try_parse_date, validate_dataframe
 from src.pii_detection import PHONE_PATTERN
+
+QUARANTINE_COLUMNS = EXPECTED_COLUMNS + ["quarantine_reason"]
 
 
 @dataclass
@@ -87,15 +89,27 @@ def _normalize_status(value: str) -> str:
     return value.strip().lower()
 
 
-def clean_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, CleaningLog]:
+def clean_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, CleaningLog]:
+    """
+    Clean `df` and return (cleaned_df, quarantined_df, log).
+
+    `quarantined_df` carries every removed row (in its state at the moment
+    of removal) plus a `quarantine_reason` column, so removed records are
+    an inspectable dataset -- not just a count in the log.
+    """
     log = CleaningLog(input_records=len(df))
     working = df.copy()
+    quarantined_rows: list[dict] = []
 
     # --- Step 1: drop duplicate customer_id, keeping the first occurrence ---
     id_series = working["customer_id"].str.strip()
     is_dup = id_series.duplicated(keep="first") & (id_series != "")
     for idx in working.index[is_dup]:
-        log.record_removal("duplicate_customer_id", working.at[idx, "customer_id"].strip())
+        cid = working.at[idx, "customer_id"].strip()
+        log.record_removal("duplicate_customer_id", cid)
+        quarantined_row = working.loc[idx, EXPECTED_COLUMNS].to_dict()
+        quarantined_row["quarantine_reason"] = "duplicate_customer_id"
+        quarantined_rows.append(quarantined_row)
     working = working[~is_dup].copy()
 
     # --- Step 2: deterministic, non-inventive normalization ---
@@ -149,6 +163,9 @@ def clean_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, CleaningLog]:
         log.record_removal(primary_reason, cid)
         for r in reasons:
             log.uncorrectable_problems[r] = log.uncorrectable_problems.get(r, 0) + 1
+        quarantined_row = working.loc[idx, EXPECTED_COLUMNS].to_dict()
+        quarantined_row["quarantine_reason"] = "; ".join(reasons)
+        quarantined_rows.append(quarantined_row)
 
     for column, count in log.changes_by_column.items():
         log.corrected_problems[f"{column}_normalized"] = count
@@ -157,4 +174,6 @@ def clean_dataframe(df: pd.DataFrame) -> tuple[pd.DataFrame, CleaningLog]:
     log.cleaned_records = len(cleaned)
     log.removed_records = log.input_records - log.cleaned_records
 
-    return cleaned.reset_index(drop=True), log
+    quarantined = pd.DataFrame(quarantined_rows, columns=QUARANTINE_COLUMNS)
+
+    return cleaned.reset_index(drop=True), quarantined.reset_index(drop=True), log

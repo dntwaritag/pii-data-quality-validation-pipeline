@@ -195,6 +195,12 @@ def render_cleaning_log(log: CleaningLog, path: Path) -> None:
     lines.append(f"Cleaned (retained) records: {log.cleaned_records}")
     lines.append(f"Removed records: {log.removed_records}")
     lines.append("")
+    lines.append(
+        "Every removed row (with the value it had at the moment of removal) is "
+        "written to outputs/customers_quarantined.csv with a quarantine_reason "
+        "column -- removed records are an inspectable dataset, not just a count."
+    )
+    lines.append("")
 
     lines.append("CHANGES BY COLUMN (values reformatted, not removed)")
     lines.append("-" * 60)
@@ -304,6 +310,13 @@ def render_pipeline_execution_report(summary: dict, path: Path) -> None:
     lines.append("MASKING")
     lines.append("-" * 60)
     lines.append(f"Masked records written: {summary['masked_record_count']}")
+    lines.append("")
+
+    lines.append("STAGE TIMINGS (wall-clock seconds)")
+    lines.append("-" * 60)
+    for stage, seconds in summary["stage_timings_seconds"].items():
+        lines.append(f"{stage}: {seconds}s")
+    lines.append(f"TOTAL: {summary['total_duration_seconds']}s")
     lines.append("")
 
     lines.append("GENERATED FILES")

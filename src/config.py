@@ -25,6 +25,7 @@ LOGS_DIR = Path(os.environ.get("PIPELINE_LOGS_DIR", PROJECT_ROOT / "logs"))
 RAW_DATA_FILE = DATA_DIR / "customers_raw.csv"
 CLEANED_DATA_FILE = OUTPUT_DIR / "customers_cleaned.csv"
 MASKED_DATA_FILE = OUTPUT_DIR / "customers_masked.csv"
+QUARANTINED_DATA_FILE = OUTPUT_DIR / "customers_quarantined.csv"
 
 # Report files.
 DATA_QUALITY_REPORT = REPORTS_DIR / "data_quality_report.txt"

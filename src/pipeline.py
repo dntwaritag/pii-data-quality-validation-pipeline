@@ -6,12 +6,22 @@ Mask -> Save outputs -> Generate reports.
 
 Run with:
     python -m src.pipeline
+
+Performance note: this project does not use a code profiler (cProfile /
+line_profiler); it's a straightforward batch job over a few hundred rows,
+where per-line CPU profiling wouldn't add much. What it does track,
+because it's useful in a real batch pipeline, is wall-clock duration per
+stage (`_stage_timer` below), logged and included in
+`pipeline_execution_report.txt` so a slow stage is visible without
+needing to reach for an external profiler.
 """
 
 from __future__ import annotations
 
 import logging
 import sys
+import time
+from contextlib import contextmanager
 from datetime import datetime
 
 from src import config, reporting
@@ -41,6 +51,16 @@ class PipelineError(Exception):
     """Raised when the pipeline cannot complete and should stop with a clear message."""
 
 
+@contextmanager
+def _stage_timer(stage_name: str, timings: dict):
+    """Time a pipeline stage with a monotonic clock and record it in `timings`."""
+    start = time.perf_counter()
+    try:
+        yield
+    finally:
+        timings[stage_name] = round(time.perf_counter() - start, 4)
+
+
 def run_pipeline() -> dict:
     """
     Execute the full pipeline. Returns the execution summary dict that also
@@ -55,13 +75,16 @@ def run_pipeline() -> dict:
     warnings: list[str] = []
     errors: list[str] = []
     generated_files: list[str] = []
+    stage_timings: dict[str, float] = {}
     status = "SUCCESS"
+    pipeline_start = time.perf_counter()
 
     logger.info("Pipeline started")
     logger.info("Input file: %s", config.RAW_DATA_FILE)
 
     try:
-        df = load_customers(config.RAW_DATA_FILE)
+        with _stage_timer("ingestion", stage_timings):
+            df = load_customers(config.RAW_DATA_FILE)
     except IngestionError as exc:
         logger.error("Ingestion failed: %s", exc)
         raise PipelineError(f"Ingestion failed: {exc}") from exc
@@ -71,7 +94,8 @@ def run_pipeline() -> dict:
 
     # --- Profiling ---
     try:
-        profile = profile_dataset(df)
+        with _stage_timer("profiling", stage_timings):
+            profile = profile_dataset(df)
     except (ValueError, KeyError) as exc:
         logger.error("Profiling failed: %s", exc)
         raise PipelineError(f"Profiling failed: {exc}") from exc
@@ -81,7 +105,8 @@ def run_pipeline() -> dict:
 
     # --- PII detection ---
     try:
-        pii = detect_pii(df)
+        with _stage_timer("pii_detection", stage_timings):
+            pii = detect_pii(df)
     except (ValueError, KeyError) as exc:
         logger.error("PII detection failed: %s", exc)
         raise PipelineError(f"PII detection failed: {exc}") from exc
@@ -95,7 +120,8 @@ def run_pipeline() -> dict:
 
     # --- Pre-cleaning validation ---
     try:
-        pre_validation = validate_dataframe(df)
+        with _stage_timer("pre_cleaning_validation", stage_timings):
+            pre_validation = validate_dataframe(df)
     except (ValueError, KeyError) as exc:
         logger.error("Validation failed: %s", exc)
         raise PipelineError(f"Validation failed: {exc}") from exc
@@ -109,7 +135,8 @@ def run_pipeline() -> dict:
 
     # --- Cleaning ---
     try:
-        cleaned_df, cleaning_log = clean_dataframe(df)
+        with _stage_timer("cleaning", stage_timings):
+            cleaned_df, quarantined_df, cleaning_log = clean_dataframe(df)
     except (ValueError, KeyError) as exc:
         logger.error("Cleaning failed: %s", exc)
         raise PipelineError(f"Cleaning failed: {exc}") from exc
@@ -126,7 +153,8 @@ def run_pipeline() -> dict:
 
     # --- Post-cleaning validation ---
     try:
-        post_validation = validate_dataframe(cleaned_df)
+        with _stage_timer("post_cleaning_validation", stage_timings):
+            post_validation = validate_dataframe(cleaned_df)
     except (ValueError, KeyError) as exc:
         logger.error("Post-cleaning validation failed: %s", exc)
         raise PipelineError(f"Post-cleaning validation failed: {exc}") from exc
@@ -141,20 +169,24 @@ def run_pipeline() -> dict:
             f"{post_validation.failed_rows} cleaned records still fail validation; see validation_results.txt"
         )
 
-    # --- Save cleaned dataset ---
+    # --- Save cleaned + quarantined datasets ---
     try:
         config.OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         cleaned_df.to_csv(config.CLEANED_DATA_FILE, index=False)
+        quarantined_df.to_csv(config.QUARANTINED_DATA_FILE, index=False)
     except OSError as exc:
-        logger.error("Failed to write cleaned dataset: %s", exc)
-        raise PipelineError(f"Failed to write cleaned dataset: {exc}") from exc
+        logger.error("Failed to write cleaned/quarantined dataset: %s", exc)
+        raise PipelineError(f"Failed to write cleaned/quarantined dataset: {exc}") from exc
     generated_files.append(str(config.CLEANED_DATA_FILE))
+    generated_files.append(str(config.QUARANTINED_DATA_FILE))
     logger.info("Cleaned dataset written: %d records", len(cleaned_df))
+    logger.info("Quarantined dataset written: %d records", len(quarantined_df))
 
     # --- Masking ---
     try:
-        masked_df = mask_dataframe(cleaned_df)
-        masked_df.to_csv(config.MASKED_DATA_FILE, index=False)
+        with _stage_timer("masking", stage_timings):
+            masked_df = mask_dataframe(cleaned_df)
+            masked_df.to_csv(config.MASKED_DATA_FILE, index=False)
     except OSError as exc:
         logger.error("Failed to write masked dataset: %s", exc)
         raise PipelineError(f"Failed to write masked dataset: {exc}") from exc
@@ -162,6 +194,8 @@ def run_pipeline() -> dict:
     reporting.render_masked_sample(cleaned_df, config.MASKED_SAMPLE_REPORT)
     generated_files.append(str(config.MASKED_SAMPLE_REPORT))
     logger.info("Masked dataset written: %d records", len(masked_df))
+
+    total_duration = round(time.perf_counter() - pipeline_start, 4)
 
     summary = {
         "timestamp": datetime.now().isoformat(timespec="seconds"),
@@ -179,18 +213,20 @@ def run_pipeline() -> dict:
         "warnings": warnings,
         "errors": errors,
         "status": status,
+        "stage_timings_seconds": stage_timings,
+        "total_duration_seconds": total_duration,
     }
 
     reporting.render_pipeline_execution_report(summary, config.PIPELINE_EXECUTION_REPORT)
     generated_files.append(str(config.PIPELINE_EXECUTION_REPORT))
-    logger.info("Pipeline completed with status %s", status)
+    logger.info("Pipeline completed with status %s in %.4fs", status, total_duration)
     return summary
 
 
 if __name__ == "__main__":
     try:
         result = run_pipeline()
-        print(f"Pipeline finished: {result['status']}")
+        print(f"Pipeline finished: {result['status']} in {result['total_duration_seconds']}s")
         sys.exit(0)
     except PipelineError as exc:
         logging.getLogger("pipeline").error("Pipeline aborted: %s", exc)
