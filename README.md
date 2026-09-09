@@ -152,6 +152,15 @@ docker run --rm \
   pii-data-quality-pipeline
 ```
 
+Or with Docker Compose (declarative volumes, no long `docker run` flags):
+
+```bash
+docker compose run --rm pipeline   # generate data (if missing) + run the pipeline
+docker compose run --rm test       # run the test suite in the container
+```
+
+Or via Make: `make compose-run` / `make compose-test`.
+
 The container entrypoint (`docker-entrypoint.sh`) generates
 `data/customers_raw.csv` automatically on first run if it isn't already
 present, then executes the full pipeline.
@@ -173,6 +182,8 @@ itself (self-documenting via `## ` comments):
 | `make docker-build` | Build the Docker image. |
 | `make docker-run` | Run the pipeline in a container, outputs bind-mounted to the host. |
 | `make docker-test` | Run the test suite in a container. |
+| `make compose-run` | Run the pipeline via `docker compose` (declarative volumes). |
+| `make compose-test` | Run the test suite via `docker compose`. |
 
 ## Outputs
 

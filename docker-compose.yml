@@ -1,0 +1,23 @@
+# Single-service compose file. Not required for this project (one
+# container, no dependencies) -- provided as a convenience so pipeline
+# runs and test runs are one-liners instead of a long `docker run`
+# command with repeated volume flags.
+#
+# Usage:
+#   docker compose run --rm pipeline   # generate data (if missing) + run the pipeline
+#   docker compose run --rm test       # run the test suite in the container
+
+services:
+  pipeline:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+
+  test:
+    build: .
+    entrypoint: ["pytest", "-q"]
+    volumes:
+      - ./data:/app/data

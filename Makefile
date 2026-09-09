@@ -49,3 +49,11 @@ docker-run:
 ## docker-test: Run the test suite inside a container.
 docker-test:
 	docker run --rm --entrypoint pytest pii-data-quality-pipeline -q
+
+## compose-run: Run the pipeline via docker compose (equivalent to docker-run, declarative volumes).
+compose-run:
+	docker compose run --rm pipeline
+
+## compose-test: Run the test suite via docker compose.
+compose-test:
+	docker compose run --rm test

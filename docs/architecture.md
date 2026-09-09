@@ -137,7 +137,7 @@ pii-data-quality-validation-pipeline/
 ├── reflection.md
 ├── README.md
 ├── Makefile              # make help for the full target list
-├── Dockerfile / docker-entrypoint.sh / .dockerignore
+├── Dockerfile / docker-compose.yml / docker-entrypoint.sh / .dockerignore
 ├── requirements.txt
 └── .gitignore / .env.example
 ```
