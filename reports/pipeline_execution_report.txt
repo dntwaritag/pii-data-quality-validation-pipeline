@@ -1,7 +1,7 @@
 PIPELINE EXECUTION REPORT
 ============================================================
 
-Execution timestamp: 2026-09-09T16:51:00
+Execution timestamp: 2026-09-09T16:52:58
 Input file: /home/claude/pii-data-quality-validation-pipeline/data/customers_raw.csv
 Input row count: 220
 
@@ -30,14 +30,14 @@ Masked records written: 148
 
 STAGE TIMINGS (wall-clock seconds)
 ------------------------------------------------------------
-ingestion: 0.0035s
-profiling: 0.0151s
-pii_detection: 0.0065s
-pre_cleaning_validation: 0.0278s
-cleaning: 0.0922s
-post_cleaning_validation: 0.0223s
-masking: 0.003s
-TOTAL: 0.1773s
+ingestion: 0.0038s
+profiling: 0.0153s
+pii_detection: 0.0061s
+pre_cleaning_validation: 0.0269s
+cleaning: 0.0765s
+post_cleaning_validation: 0.0188s
+masking: 0.0032s
+TOTAL: 0.1585s
 
 GENERATED FILES
 ------------------------------------------------------------

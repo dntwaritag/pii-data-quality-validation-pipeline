@@ -63,7 +63,7 @@ customers_raw.csv
        ↓
    Validation             → validation_results.txt (pre-cleaning)
        ↓
-    Cleaning              → cleaning_log.txt
+    Cleaning              → cleaning_log.txt, customers_quarantined.csv
        ↓
  Re-validation            → validation_results.txt (post-cleaning, appended)
        ↓
@@ -73,6 +73,9 @@ customers_raw.csv
        ↓
      Reports              → pipeline_execution_report.txt
 ```
+
+For rendered flowcharts, a module dependency diagram, and a full
+execution sequence diagram, see **[docs/architecture.md](docs/architecture.md)**.
 
 ### Modules
 
